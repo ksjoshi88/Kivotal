@@ -6,6 +6,10 @@ class UserTest < ActiveSupport::TestCase
   # end
   #
 
+  setup do
+    Role.find_or_create_by(name: :manager)
+    Role.find_or_create_by(name: :developer)
+  end
 
   test 'should not create user unless a valid password' do
     user = FactoryBot.build(:user, password: 'invalid', password_confirmation: 'invalid')
@@ -26,6 +30,11 @@ class UserTest < ActiveSupport::TestCase
     user1 = FactoryBot.create(:user, email: 'user@kivotal.com')
     user2 = FactoryBot.build(:user, email: 'user@kivotal.com')
     assert_not user2.valid?
+  end
+
+  test 'should be assigned developer role by default' do
+    user1 = FactoryBot.create(:user)
+    assert user1.has_role? :developer
   end
 
 

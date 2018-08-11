@@ -1,4 +1,8 @@
 <h4>Welcome to</h4>
 <h1>Kivotal Tracker</h1>
 
-
+<% if current_user.is_manager? %>
+   <h3> Logged in as Manager</h3>
+<% else %>
+  <h3> Logged in as Developer</h3>
+<% end %>
