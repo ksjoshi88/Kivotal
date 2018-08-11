@@ -6,23 +6,23 @@ class ProjectTest < ActiveSupport::TestCase
   # end
 
   test "should be invalid without a title" do
-    project = FactoryBot.build(:project, title: nil)
+    project = build(:project, title: nil)
     assert_not project.valid?
   end
 
   test "should be invalid without a manager" do
-    project = FactoryBot.build(:project, manager: nil)
+    project = build(:project, manager: nil)
     assert_not project.valid?
   end
 
   test "should be invalid without a unique title" do
-    project1 = FactoryBot.create(:project, title: "project1")
-    project2 = FactoryBot.build(:project, title: "project1")
+    project1 = create(:project, title: "project1")
+    project2 = build(:project, title: "project1")
     assert_not project2.valid?
   end
 
   test "should be valid without a title and a manager" do
-    project = FactoryBot.build(:project)
+    project = build(:project)
     assert project.valid?
   end
 
