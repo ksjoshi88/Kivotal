@@ -1,7 +1,11 @@
 FactoryBot.define do
 
+  sequence :todo do |n|
+    "complete task#-#{n}"
+  end
+
   factory :task do
-    todo "Add Module"
+    todo
     project
     developer
     status 'unassigned'

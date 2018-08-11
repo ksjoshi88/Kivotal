@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   # This will be the landing page route
   root 'home#index'
 
-  resources :projects
+  resources :projects do
+    resources :tasks
+  end
 
   devise_for :users
 end

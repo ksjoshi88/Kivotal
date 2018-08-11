@@ -25,7 +25,7 @@ class User < ApplicationRecord
   end
 
   def full_name
-    first_name.capitalize + last_name.capitalize
+    first_name.capitalize + ' ' + last_name.capitalize
   end
 
   def assign_default_role
