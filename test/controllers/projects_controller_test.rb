@@ -6,9 +6,16 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     @project = create(:project, manager: @manager)
   end
 
-  test "should not get index if not logged in as manager" do
+  test "should not get index if not logged in" do
     get projects_url
-    assert_redirected_to new_user_session_path
+    assert_redirected_to root_path
+  end
+
+  test "should not get index if logged in as a developer" do
+    developer = create(:developer)
+    sign_in developer
+    get projects_url
+    assert_redirected_to root_path
   end
 
   test "should not get index if logged in as manager" do
@@ -38,7 +45,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to project_url(Project.last)
   end
-  
+
   test "should be able to edit a project" do
     sign_in @manager
     get edit_project_url(@project)
