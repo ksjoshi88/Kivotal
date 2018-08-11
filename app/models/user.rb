@@ -14,6 +14,10 @@ class User < ApplicationRecord
   has_many :projects, foreign_key: :manager_id
   has_many :tasks,    foreign_key: :developer_id
 
+  #scopes
+  scope :developers, -> { self.with_any_role('developer')}
+  scope :managers, -> { self.with_any_role('manager')}
+
   def password_complexity
     if password.present? and not password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)
       errors.add :password, 'must include at least one lowercase letter, one uppercase letter, and one digit'
