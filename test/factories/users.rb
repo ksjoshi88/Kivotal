@@ -9,8 +9,8 @@ FactoryBot.define do
     first_name 'John'
     last_name  'Doe'
     email
-    password 'kivotal'
-    password_confirmation 'kivotal'
+    password 'Kivotal1'
+    password_confirmation 'Kivotal1'
   end
 
 end
