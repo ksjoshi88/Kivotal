@@ -12,7 +12,7 @@ class HomeController < ApplicationController
 
   def get_project_status
     @project = Project.find(params[:id])
-    render json: @project.tasks.group(:status).distinct.count(:status).to_a
+    render json: @project.tasks.group(:status).count(:status).to_a
   end
 
 end

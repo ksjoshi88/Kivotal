@@ -32,9 +32,17 @@ class UserTest < ActiveSupport::TestCase
     assert_not user2.valid?
   end
 
-  test 'should be assigned developer role by default' do
-    user1 = create(:user)
+  test 'should return concatenated names as full_name' do
+    user = create(:user, first_name: 'jen', last_name: 'doe')
+    assert_equal user.full_name, 'Jen Doe'
+  end
+
+  test 'should be assigned role based on as_manager attribute' do
+    user1 = create(:user, as_manager: "0")
     assert user1.has_role? :developer
+    user2 = create(:user, as_manager: "1")
+    assert user2.has_role? :manager
+
   end
 
 

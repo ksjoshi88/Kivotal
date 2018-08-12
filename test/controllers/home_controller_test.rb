@@ -45,7 +45,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     developer = create(:developer)
     sign_in developer
     get get_project_status_url(project.id)
-    assert_redirect_to root_path
+    assert_redirected_to root_path
   end
 
   test "manager should be able to get project status" do

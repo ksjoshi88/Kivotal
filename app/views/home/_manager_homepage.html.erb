@@ -1,6 +1,6 @@
 <div class="manager-homepage-container">
   <h1> Manager Dashboard</h1>
-
+  <br/>
   <%= link_to "Manage Projects", projects_path() %>
   <hr>
   <br/>
@@ -8,19 +8,14 @@
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
       <a class="nav-item nav-link active" id="nav-devs-tab" data-toggle="tab" href="#nav-devs" role="tab" aria-controls="nav-devs" aria-selected="true">Developer Status</a>
       <a class="nav-item nav-link" id="nav-projects-tab" data-toggle="tab" href="#nav-projects" role="tab" aria-controls="nav-projects" aria-selected="false">Project Status</a>
-      <a class="nav-item nav-link" id="nav-stats-tab" data-toggle="tab" href="#nav-stats" role="tab" aria-controls="nav-stats" aria-selected="false">Statistics</a>
+      <a class="nav-item nav-link" id="nav-stats-tab" data-toggle="tab" href="#nav-stats" role="tab" aria-controls="nav-stats" aria-selected="false"> Charts</a>
     </div>
   </nav>
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-devs" role="tabpanel" aria-labelledby="nav-devs-tab">
-
-      <br/>
-
-      <h4> Developer tasks status</h4>
-
-      <br/>
-
-      <table class="table table-bordered">
+      <br/><h4> Developer tasks status</h4><br/>
+      <% if @devs.count > 0 %>
+        <table class="table table-bordered">
           <thead>
           <tr>
             <th>Developer</th>
@@ -53,14 +48,14 @@
           <% end %>
           </tbody>
         </table>
-
-
+      <% else %>
+         <h6> Currently no developers working on your projects.</h6>
+      <% end %>
     </div>
     <div class="tab-pane fade" id="nav-projects" role="tabpanel" aria-labelledby="nav-projects-tab">
-      <br/>
-      <h4> Project tasks status</h4>
-      <br/>
-      <table class="table table-bordered">
+      <br/><h4> Project tasks status</h4><br/>
+      <% if @projects.count > 0 %>
+        <table class="table table-bordered">
         <thead>
         <tr>
           <th>Project</th>
@@ -93,20 +88,26 @@
         <% end %>
         </tbody>
       </table>
+      <% else %>
+        <h6> You are not managing any projects right now.</h6>
+      <% end %>
     </div>
     <div class="tab-pane fade" id="nav-stats" role="tabpanel" aria-labelledby="nav-stats-tab">
       <br/>
-      <div class="row">
-      <div class="form-group col-xs-4">
-        <label> Select the project</label>
-      <%= select_tag "project-id-selector", options_for_select(@projects.map { |p| [p.title, p.id] }), prompt: 'Select project', class: 'form-control' %>
-      </div>
-      </div>
-      <div id="project-status" style="width: 1200px; height: 700px;"></div>
+      <% if @projects.count > 0 %>
+        <div class="row">
+        <div class="form-group col-xs-4">
+           <label> Select the project</label>
+           <%= select_tag "project-id-selector", options_for_select(@projects.map { |p| [p.title, p.id] }), prompt: 'Select project', class: 'form-control' %>
+        </div>
+        </div>
+        <div id="project-status" style="width: 1200px; height: 700px;"></div>
+      <% else %>
+         <h6> You don't have any project statistics available.</h6>
+      <% end %>
     </div>
   </div>
 </div>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
     new KIVOTAL.ManagerHome($('.manager-homepage-container'));
 </script>
