@@ -15,7 +15,9 @@ class User < ApplicationRecord
   #relationships
   has_many :projects, foreign_key: :manager_id
   has_many :tasks,    foreign_key: :developer_id
+
   has_many :work_projects, :through => :tasks, :source => :project
+
 
   #scopes
   scope :developers, -> { self.with_any_role('developer')}

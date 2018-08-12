@@ -1,4 +1,101 @@
 <div class="manager-homepage-container">
-  <h1> Manager Home</h1>
-  <%= link_to "Manage Projects", projects_path() %><br />
+  <h1> Manager Dashboard</h1>
+
+  <%= link_to "Manage Projects", projects_path() %>
+  <hr>
+  <br/>
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-devs-tab" data-toggle="tab" href="#nav-devs" role="tab" aria-controls="nav-devs" aria-selected="true">Developer Status</a>
+      <a class="nav-item nav-link" id="nav-projects-tab" data-toggle="tab" href="#nav-projects" role="tab" aria-controls="nav-projects" aria-selected="false">Project Status</a>
+      <a class="nav-item nav-link" id="nav-stats-tab" data-toggle="tab" href="#nav-stats" role="tab" aria-controls="nav-stats" aria-selected="false">Statistics</a>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-devs" role="tabpanel" aria-labelledby="nav-devs-tab">
+
+      <br/>
+
+      <h4> Developer tasks status</h4>
+
+      <br/>
+
+      <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th>Developer</th>
+            <th>Assigned</th>
+            <th>In Progress</th>
+            <th>Done</th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% @devs.each do |dev| %>
+            <tr>
+              <td><%= dev.full_name %></td>
+              <td>
+                <% dev.tasks.assigned.collect(&:todo).flatten.uniq.each_with_index do |t,index |    %>
+                 <%= "#{index +1}. #{t}"%><br/>
+                <% end %>
+              </td>
+              <td>
+                <% dev.tasks.in_progress.collect(&:todo).flatten.uniq.each_with_index do |t,index | %>
+                  <%= "#{index +1}. #{t}"%><br/>
+                <% end %>
+              </td>
+              <td>
+                <% dev.tasks.done.collect(&:todo).flatten.uniq.each_with_index do |t,index | %>
+                  <%= "#{index +1}. #{t}"%><br/>
+                <% end %>
+              </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+
+
+    </div>
+    <div class="tab-pane fade" id="nav-projects" role="tabpanel" aria-labelledby="nav-projects-tab">
+      <br/>
+      <h4> Project tasks status</h4>
+      <br/>
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Project</th>
+          <th>Assigned </th>
+          <th>In Progress</th>
+          <th>Done</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @projects.each do |project| %>
+          <tr>
+            <td><%= project.title %></td>
+            <td>
+              <% project.tasks.assigned.collect(&:todo).flatten.uniq.each_with_index do |t,index | %>
+                 <%= "#{index +1}. #{t}"%><br/>
+              <% end %>
+            </td>
+            <td>
+              <% project.tasks.in_progress.collect(&:todo).flatten.uniq.each_with_index do |t,index | %>
+                 <%= "#{index +1}. #{t}"%><br/>
+              <% end %>
+            </td>
+            <td>
+              <% project.tasks.done.collect(&:todo).flatten.uniq.each_with_index do |t,index | %>
+                 <%= "#{index +1}. #{t}"%><br/>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="nav-stats" role="tabpanel" aria-labelledby="nav-stats-tab">
+       Charts here
+    </div>
+  </div>
 </div>

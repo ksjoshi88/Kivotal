@@ -30,4 +30,14 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_select '.developer-homepage-container',1
   end
 
+  test "manage should be able to see data about all his/her projects" do
+    manager = create(:manager)
+    3.times do
+      create(:project, manager: manager)
+    end
+    sign_in manager
+    get home_index_url
+    assert_equal assigns(:projects).count, 3
+  end
+
 end
