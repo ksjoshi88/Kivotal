@@ -3,7 +3,7 @@ require 'test_helper'
 class ProjectsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @manager = create(:manager)
-    @project = create(:project, manager: @manager)
+    @project = create(:project, title: 'P1', manager: @manager)
   end
 
   test "should not get index if not logged in" do
@@ -43,7 +43,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Project.count') do
       post projects_url, params: { project: { title: 'ABC' } }
     end
-    assert_redirected_to project_url(Project.last)
+    assert_redirected_to projects_url
   end
 
   test "should be able to edit a project" do
@@ -54,8 +54,11 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update project" do
     sign_in @manager
+    assert_equal @project.title, 'P1'
     patch project_url(@project), params: { project: { title: 'EDF' } }
-    assert_redirected_to project_url(@project)
+    @project.reload
+    assert_equal @project.title, 'EDF'
+    assert_redirected_to projects_url
   end
 
   test "should destroy project" do

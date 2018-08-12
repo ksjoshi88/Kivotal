@@ -3,7 +3,7 @@ require 'test_helper'
 class TasksControllerTest < ActionDispatch::IntegrationTest
   setup do
     @project = create(:project)
-    @task = create(:task, project: @project)
+    @task = create(:task, :assigned,project: @project)
     @manager = @project.manager
     sign_in @manager
   end
@@ -30,7 +30,7 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Task.count') do
       post project_tasks_url(@project), params: { task: @task.attributes }
     end
-    assert_redirected_to project_task_path(@project, Task.last)
+    assert_redirected_to project_tasks_path(@project)
   end
 
   test "should be able to edit a task" do
@@ -39,8 +39,10 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "a manager should be able to update a task" do
-    patch project_task_url(@project,@task), params: {task: @task.attributes }
-    assert_redirected_to project_task_path(@project, Task.last)
+    patch project_task_url(@project,@task), params: {task: {status: 'unassigned'} }
+    @task.reload
+    assert_equal @task.status, 'unassigned'
+    assert_redirected_to project_tasks_path(@project)
   end
 
   test "a developer should be able to change status of the task assigned to him/her" do

@@ -8,7 +8,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should be able to access the home page upon successful login' do
-    user = create(:user)
+    user = create(:manager)
     sign_in user
     get home_index_url
     assert_response :success
@@ -26,8 +26,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     user = create(:developer)
     sign_in user
     get home_index_url
-    assert_response :success
-    assert_select '.developer-homepage-container',1
+    assert_redirected_to work_projects_path
   end
 
   test "manage should be able to see data about all his/her projects" do

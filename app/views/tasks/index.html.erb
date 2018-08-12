@@ -5,7 +5,8 @@
   <%= link_to 'Create New Task', new_project_task_path(params[:project_id]) %>
 </div>
 
-<table class="table">
+<% if @tasks.count > 0 %>
+  <table class="table">
   <thead class="thead-light">
   <tr>
     <th>Todo</th>
@@ -26,6 +27,8 @@
   </tr>
 <% end %>
 </table>
-
+<% else %>
+  <h6>No task exists for this project.</h6>
+<% end %>
 
 

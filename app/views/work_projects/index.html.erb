@@ -1,28 +1,29 @@
+<div class="developer-home-container">
+  <div class="jumbotron">
+    <h1 class="display-4">My Projects</h1>
+  </div>
 
-<div class="jumbotron">
-  <h1 class="display-4">My Projects</h1>
-</div>
-
-<% if @projects.count > 0 %>
-  <table class="table table-bordered">
-    <thead class="thead-light">
-      <tr>
-        <th> Title</th>
-        <th> Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @projects.each do |project| %>
+  <% if @projects.count > 0 %>
+    <table class="table table-bordered">
+      <thead class="thead-light">
         <tr>
-          <td><%= project.title %></td>
-          <td><%= link_to 'My tasks', work_project_dev_tasks_path(project) %></td>
+          <th> Title</th>
+          <th> Actions</th>
         </tr>
-    <% end %>
-    </tbody>
-</table>
-<% else %>
-  <h6>Currently no projects assigned to you.</h6>
-<%end %>
+      </thead>
+      <tbody>
+        <% @projects.each do |project| %>
+          <tr>
+            <td><%= project.title %></td>
+            <td><%= link_to 'My tasks', work_project_dev_tasks_path(project) %></td>
+          </tr>
+      <% end %>
+      </tbody>
+  </table>
+  <% else %>
+    <h6>Currently no projects assigned to you.</h6>
+  <%end %>
+</div>
 
 
 
