@@ -38,9 +38,18 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should be able to update a task" do
+  test "a manager should be able to update a task" do
     patch project_task_url(@project,@task), params: {task: @task.attributes }
     assert_redirected_to project_task_path(@project, Task.last)
+  end
+
+  test "a developer should be able to change status of the task assigned to him/her" do
+    sign_out @manager
+    developer = create(:developer)
+    task = create(:task, :assigned, project: @project, developer_id: developer.id)
+    sign_in developer
+    patch project_task_url(@project,task), params: {task: {status: 'in_progress'} }
+    assert_equal assigns(:task).status, 'in_progress'
   end
 
   test "should be able to delete a task" do

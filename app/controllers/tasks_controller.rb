@@ -1,8 +1,8 @@
-class TasksController < ManagerApplicationController
+class TasksController < ApplicationController
   before_action :set_tasks
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
-  skip_before_action :authenticate_manager!, only: [:update]
+  before_action :authenticate_manager!, only: [:index, :show, :new, :edit, :create, :destroy]
+  before_action :authenticate_user!, only: [:update]
 
   # GET projects/1/tasks
   def index
@@ -36,7 +36,11 @@ class TasksController < ManagerApplicationController
   # PUT projects/1/tasks/1
   def update
     if @task.update_attributes(task_params)
-      redirect_to([@task.project, @task], notice: 'Task was successfully updated.')
+      if current_user.has_role? :manager
+        redirect_to([@task.project, @task], notice: 'Task was successfully updated.')
+      else
+        redirect_to work_project_dev_tasks_url([@task.project, @task], notice: 'Task was successfully updated.')
+       end
     else
       render action: 'edit'
     end
@@ -45,14 +49,13 @@ class TasksController < ManagerApplicationController
   # DELETE projects/1/tasks/1
   def destroy
     @task.destroy
-
     redirect_to project_tasks_url(@project)
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tasks
-      @project = Project.find(params[:project_id])
+        @project = Project.find(params[:project_id])
     end
 
     def set_task

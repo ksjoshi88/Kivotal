@@ -5,6 +5,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  #validations
   validate  :password_complexity
   validates :email,:first_name, :last_name, presence: true
 
@@ -13,11 +14,13 @@ class User < ApplicationRecord
   #relationships
   has_many :projects, foreign_key: :manager_id
   has_many :tasks,    foreign_key: :developer_id
+  has_many :work_projects, :through => :tasks, :source => :project
 
   #scopes
   scope :developers, -> { self.with_any_role('developer')}
   scope :managers, -> { self.with_any_role('manager')}
 
+  #helpers
   def password_complexity
     if password.present? and not password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)
       errors.add :password, 'must include at least one lowercase letter, one uppercase letter, and one digit'

@@ -1,0 +1,21 @@
+<h1><%= @project.title %></h1>
+<h3>tasks assigned</h3>
+
+<table>
+  <tr>
+    <th>Todo</th>
+    <th>Status</th>
+    <th></th>
+  </tr>
+
+  <% @tasks.each do |task| %>
+    <tr>
+      <td><%= task.todo %></td>
+      <td><%= task.status %></td>
+      <td><%= link_to 'Change Status', edit_work_project_dev_task_path(task.project, task) %></td>
+    </tr>
+  <% end %>
+</table>
+
+
+
