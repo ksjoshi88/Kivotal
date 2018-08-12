@@ -1,26 +1,34 @@
-<p id="notice"><%= notice %></p>
 
-<h1>My projects</h1>
+<%= link_to 'Back', root_path %>
+<div class="jumbotron">
+  <h1 class="display-4">Manage Projects</h1>
+  <%= link_to 'Create New Project', new_project_path %>
+</div>
 
-<table>
-  <thead>
+<table class="table table-bordered">
+  <thead class="thead-light">
     <tr>
-      <th colspan="3"></th>
+      <th> Title</th>
+      <th> Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @projects.each do |project| %>
     <tr>
-    <td><%= project.title %></td>
-        <td><%= link_to 'Tasks', project_tasks_path(project) %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <td>
+        <%= project.title %>
+      </td>
+      <td>
+          <%= link_to 'Edit', edit_project_path(project) %> &nbsp;
+          <%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %> &nbsp;&nbsp;
+          <%= link_to 'Manage Tasks', project_tasks_path(project) %>
+      </td>
+    </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
 
-<%= link_to 'New Project', new_project_path %>
+
+

@@ -25,9 +25,8 @@ class TasksController < ApplicationController
   # POST projects/1/tasks
   def create
     @task = @project.tasks.build(task_params)
-
     if @task.save
-      redirect_to([@task.project, @task], notice: 'Task was successfully created.')
+      redirect_to project_tasks_url(@project)
     else
       render action: 'new'
     end
@@ -37,7 +36,7 @@ class TasksController < ApplicationController
   def update
     if @task.update_attributes(task_params)
       if current_user.has_role? :manager
-        redirect_to([@task.project, @task], notice: 'Task was successfully updated.')
+        redirect_to project_tasks_url(@project)
       else
         redirect_to work_project_dev_tasks_url([@task.project, @task], notice: 'Task was successfully updated.')
        end

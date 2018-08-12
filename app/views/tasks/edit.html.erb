@@ -1,6 +1,6 @@
 <h1>Editing task</h1>
 
-<%= render 'form' %>
+<%= render 'form', verb: 'Create'%>
 
 <%= link_to 'Show', [@task.project, @task] %> |
 <%= link_to 'Back', project_tasks_path(@task.project) %>

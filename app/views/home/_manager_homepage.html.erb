@@ -24,11 +24,11 @@
             <th>Done</th>
           </tr>
           </thead>
-
           <tbody>
           <% @devs.each do |dev| %>
-            <tr>
-              <td><%= dev.full_name %></td>
+            <% unless dev.nil? %>
+               <tr>
+              <td><%= dev.try(:full_name) %></td>
               <td>
                 <% dev.tasks.assigned.collect(&:todo).flatten.uniq.each_with_index do |t,index |    %>
                  <%= "#{index +1}. #{t}"%><br/>
@@ -45,6 +45,7 @@
                 <% end %>
               </td>
               </tr>
+            <% end %>
           <% end %>
           </tbody>
         </table>
@@ -59,6 +60,7 @@
         <thead>
         <tr>
           <th>Project</th>
+          <th>Unassigned</th>
           <th>Assigned </th>
           <th>In Progress</th>
           <th>Done</th>
@@ -69,6 +71,11 @@
         <% @projects.each do |project| %>
           <tr>
             <td><%= project.title %></td>
+            <td>
+              <% project.tasks.unassigned.collect(&:todo).flatten.uniq.each_with_index do |t,index | %>
+                <%= "#{index +1}. #{t}"%><br/>
+              <% end %>
+            </td>
             <td>
               <% project.tasks.assigned.collect(&:todo).flatten.uniq.each_with_index do |t,index | %>
                  <%= "#{index +1}. #{t}"%><br/>
@@ -101,7 +108,7 @@
            <%= select_tag "project-id-selector", options_for_select(@projects.map { |p| [p.title, p.id] }), prompt: 'Select project', class: 'form-control' %>
         </div>
         </div>
-        <div id="project-status" style="width: 1200px; height: 700px;"></div>
+        <div id="project-status" style="width: 900px; height: 500px;"></div>
       <% else %>
          <h6> You don't have any project statistics available.</h6>
       <% end %>

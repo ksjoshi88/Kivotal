@@ -26,4 +26,13 @@ class ProjectTest < ActiveSupport::TestCase
     assert project.valid?
   end
 
+  test "should delete all tasks when a project is deleted" do
+    project = create(:project)
+    2.times do
+      create(:task, project: project)
+    end
+    Project.destroy_all
+    assert_equal Task.all.count, 0
+  end
+
 end

@@ -73,7 +73,7 @@ Project.all.each do |project|
     end
 end
 
-puts 'Finished with creation of seed data.\n'
+puts 'Finished with creation of seed data.'
 
 
 

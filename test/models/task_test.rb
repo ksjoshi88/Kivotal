@@ -16,9 +16,15 @@ class TaskTest < ActiveSupport::TestCase
     assert_not task.valid?
   end
 
+  test 'should be invalid if developer is null for assigned task' do
+    task =  build(:task,:assigned, developer: nil)
+    assert_not task.valid?
+  end
+
   test 'should be valid with all correct data' do
     task =  build(:task, :done)
     assert task.valid?
   end
+
 
 end
