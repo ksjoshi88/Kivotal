@@ -6,15 +6,18 @@
   <br/>
   <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a class="nav-item nav-link active" id="nav-devs-tab" data-toggle="tab" href="#nav-devs" role="tab" aria-controls="nav-devs" aria-selected="true">Developer Status</a>
-      <a class="nav-item nav-link" id="nav-projects-tab" data-toggle="tab" href="#nav-projects" role="tab" aria-controls="nav-projects" aria-selected="false">Project Status</a>
-      <a class="nav-item nav-link" id="nav-stats-tab" data-toggle="tab" href="#nav-stats" role="tab" aria-controls="nav-stats" aria-selected="false"> Charts</a>
+      <a class="nav-item nav-link active" id="nav-devs-tab" data-toggle="tab" href="#nav-devs" role="tab" aria-controls="nav-devs" aria-selected="true">Developer
+        Status</a>
+      <a class="nav-item nav-link" id="nav-projects-tab" data-toggle="tab" href="#nav-projects" role="tab" aria-controls="nav-projects" aria-selected="false">Project
+        Status</a>
+      <a class="nav-item nav-link" id="nav-stats-tab" data-toggle="tab" href="#nav-stats" role="tab" aria-controls="nav-stats" aria-selected="false">
+        Charts</a>
     </div>
   </nav>
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-devs" role="tabpanel" aria-labelledby="nav-devs-tab">
       <br/><h4> Developer tasks status</h4><br/>
-      <% if @devs.count > 0 %>
+      <% if @dev_count > 0 %>
         <table class="table table-bordered">
           <thead>
           <tr>
@@ -27,90 +30,90 @@
           <tbody>
           <% @devs.each do |dev| %>
             <% unless dev.nil? %>
-               <tr>
-              <td><%= dev.try(:full_name) %></td>
-              <td>
-                <% dev.tasks.assigned.collect(&:todo).flatten.uniq.each_with_index do |t,index |    %>
-                 <%= "#{index +1}. #{t}"%><br/>
-                <% end %>
-              </td>
-              <td>
-                <% dev.tasks.in_progress.collect(&:todo).flatten.uniq.each_with_index do |t,index | %>
-                  <%= "#{index +1}. #{t}"%><br/>
-                <% end %>
-              </td>
-              <td>
-                <% dev.tasks.done.collect(&:todo).flatten.uniq.each_with_index do |t,index | %>
-                  <%= "#{index +1}. #{t}"%><br/>
-                <% end %>
-              </td>
+              <tr>
+                <td><%= dev.full_name %></td>
+                <td>
+                  <% dev.tasks.assigned.collect(&:todo).flatten.uniq.each_with_index do |t, index| %>
+                    <%= "#{index +1}. #{t}" %><br/>
+                  <% end %>
+                </td>
+                <td>
+                  <% dev.tasks.in_progress.collect(&:todo).flatten.uniq.each_with_index do |t, index| %>
+                    <%= "#{index +1}. #{t}" %><br/>
+                  <% end %>
+                </td>
+                <td>
+                  <% dev.tasks.done.collect(&:todo).flatten.uniq.each_with_index do |t, index| %>
+                    <%= "#{index +1}. #{t}" %><br/>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
           <% end %>
           </tbody>
         </table>
       <% else %>
-         <h6> Currently no developers working on your projects.</h6>
+        <h6> Currently no developers working on your projects.</h6>
       <% end %>
     </div>
     <div class="tab-pane fade" id="nav-projects" role="tabpanel" aria-labelledby="nav-projects-tab">
       <br/><h4> Project tasks status</h4><br/>
-      <% if @projects.count > 0 %>
+      <% if @project_count > 0 %>
         <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th>Project</th>
-          <th>Unassigned</th>
-          <th>Assigned </th>
-          <th>In Progress</th>
-          <th>Done</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <% @projects.each do |project| %>
+          <thead>
           <tr>
-            <td><%= project.title %></td>
-            <td>
-              <% project.tasks.unassigned.collect(&:todo).flatten.uniq.each_with_index do |t,index | %>
-                <%= "#{index +1}. #{t}"%><br/>
-              <% end %>
-            </td>
-            <td>
-              <% project.tasks.assigned.collect(&:todo).flatten.uniq.each_with_index do |t,index | %>
-                 <%= "#{index +1}. #{t}"%><br/>
-              <% end %>
-            </td>
-            <td>
-              <% project.tasks.in_progress.collect(&:todo).flatten.uniq.each_with_index do |t,index | %>
-                 <%= "#{index +1}. #{t}"%><br/>
-              <% end %>
-            </td>
-            <td>
-              <% project.tasks.done.collect(&:todo).flatten.uniq.each_with_index do |t,index | %>
-                 <%= "#{index +1}. #{t}"%><br/>
-              <% end %>
-            </td>
+            <th>Project</th>
+            <th>Unassigned</th>
+            <th>Assigned</th>
+            <th>In Progress</th>
+            <th>Done</th>
           </tr>
-        <% end %>
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+          <% @projects.each do |project| %>
+            <tr>
+              <td><%= project.title %></td>
+              <td>
+                <% project.tasks.unassigned.collect(&:todo).flatten.uniq.each_with_index do |t, index| %>
+                  <%= "#{index +1}. #{t}" %><br/>
+                <% end %>
+              </td>
+              <td>
+                <% project.tasks.assigned.collect(&:todo).flatten.uniq.each_with_index do |t, index| %>
+                  <%= "#{index +1}. #{t}" %><br/>
+                <% end %>
+              </td>
+              <td>
+                <% project.tasks.in_progress.collect(&:todo).flatten.uniq.each_with_index do |t, index| %>
+                  <%= "#{index +1}. #{t}" %><br/>
+                <% end %>
+              </td>
+              <td>
+                <% project.tasks.done.collect(&:todo).flatten.uniq.each_with_index do |t, index| %>
+                  <%= "#{index +1}. #{t}" %><br/>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
       <% else %>
         <h6> You are not managing any projects right now.</h6>
       <% end %>
     </div>
     <div class="tab-pane fade" id="nav-stats" role="tabpanel" aria-labelledby="nav-stats-tab">
       <br/>
-      <% if @projects.count > 0 %>
+      <% if @project_count > 0 %>
         <div class="row">
-        <div class="form-group col-xs-4">
-           <label> Select the project</label>
-           <%= select_tag "project-id-selector", options_for_select(@projects.map { |p| [p.title, p.id] }), prompt: 'Select project', class: 'form-control' %>
-        </div>
+          <div class="form-group col-xs-4">
+            <label> Select the project</label>
+            <%= select_tag "project-id-selector", options_for_select(@projects.map {|p| [p.title, p.id]}), prompt: 'Select project', class: 'form-control' %>
+          </div>
         </div>
         <div id="project-status" style="width: 900px; height: 500px;"></div>
       <% else %>
-         <h6> You don't have any project statistics available.</h6>
+        <h6> You don't have any project statistics available.</h6>
       <% end %>
     </div>
   </div>

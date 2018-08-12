@@ -7,6 +7,7 @@ class TasksController < ApplicationController
   # GET projects/1/tasks
   def index
     @tasks = @project.tasks
+    @task_count = @tasks.count
   end
 
   # GET projects/1/tasks/1

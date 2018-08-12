@@ -5,28 +5,28 @@
   <%= link_to 'Create New Task', new_project_task_path(params[:project_id]) %>
 </div>
 
-<% if @tasks.count > 0 %>
+<% if @task_count > 0 %>
   <table class="table">
-  <thead class="thead-light">
-  <tr>
-    <th>Todo</th>
-    <th>Status</th>
-    <th>Developer</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-<% @tasks.each do |task| %>
-  <tr>
-    <td><%= task.todo %></td>
-    <td><%= task.status.humanize %></td>
-    <td><%= task.try(:developer).try(:full_name) %></td>
-    <td>
-      <%= link_to 'Edit', edit_project_task_path(task.project, task) %> &nbsp;
-      <%= link_to 'Destroy', [task.project, task],:method => :delete, data: { confirm: 'Are you sure?' }%>
-    </td>
-  </tr>
-<% end %>
-</table>
+    <thead class="thead-light">
+    <tr>
+      <th>Todo</th>
+      <th>Status</th>
+      <th>Developer</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.todo %></td>
+        <td><%= task.status.humanize %></td>
+        <td><%= task.try(:developer).try(:full_name) %></td>
+        <td>
+          <%= link_to 'Edit', edit_project_task_path(task.project, task) %> &nbsp;
+          <%= link_to 'Delete', [task.project, task], :method => :delete, data: {confirm: 'Are you sure?'} %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
 <% else %>
   <h6>No task exists for this project.</h6>
 <% end %>

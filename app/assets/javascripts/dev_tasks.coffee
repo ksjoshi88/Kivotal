@@ -7,7 +7,7 @@ class KIVOTAL.DevTask
 
   init: ->
     @bindEvents()
-    unless (@container.find('#task_status').find('option:selected').text() == "assigned")
+    unless (@container.find('#task_status').find('option:selected').text() == "Assigned")
        @container.find('.developer-selector').hide()
 
   bindEvents: ->
@@ -16,7 +16,7 @@ class KIVOTAL.DevTask
 
 
   setDeveloper:(event) ->
-    if($(event.target).find('option:selected').text() == "assigned")
+    if($(event.target).find('option:selected').text() == "Assigned")
       @container.find('.developer-selector').show()
     else
       @container.find('.developer-selector').hide()

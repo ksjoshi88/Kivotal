@@ -16,10 +16,9 @@
             </ul>
           </div>
         <% end %>
-
         <div class="form-group">
           <%= f.label :status %><br />
-          <%= f.select :status, :collection => Task.statuses.keys.last(2).to_a, class: 'form-control' %>
+          <%= f.select :status, :collection => Task.statuses.keys.last(3).map { |k| [k.humanize, k]}, class: 'form-control' %>
         </div>
         <%= f.submit "Submit", class: 'btn btn-primary' %>
       <% end %>

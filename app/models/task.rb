@@ -11,7 +11,7 @@ class Task < ApplicationRecord
 
   def must_have_developer_for_assigned_task
   if self.assigned? && developer_id.nil?
-      errors.add(:developer_id, "developer can not be null for assigned tasks")
+      errors.add(:developer_id, " can not be null for assigned tasks")
     end
   end
 end

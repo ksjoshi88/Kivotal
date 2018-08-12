@@ -5,7 +5,16 @@
       <h1 class="display-4">Project</h1>
       <hr class="my-4">
       <%= form_with(model: project, local: true) do |f| %>
-
+        <% if project.errors.any? %>
+          <div id="error_explanation">
+            <h5><%= pluralize(project.errors.count, "error") %></h5>
+            <ul>
+              <% project.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
         <div class="form-group">
           <%= f.label :title %>
           <%= f.text_field :title, class: 'form-control', autofocus: true, autocomplete: "project title", required: true %>

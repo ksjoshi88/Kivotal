@@ -24,7 +24,7 @@
 
         <div class="form-group">
           <%= f.label :status %><br />
-          <%= f.select :status, :collection => Task.statuses.keys.first(2).to_a, class: 'form-control' %>
+          <%= f.select :status, :collection => Task.statuses.keys.first(2).map { |k| [k.humanize, k]}, class: 'form-control' %>
         </div>
 
         <div class="form-group developer-selector">
