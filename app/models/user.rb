@@ -1,9 +1,10 @@
 class User < ApplicationRecord
   rolify
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  # :confirmable, :lockable, :recoverable, :rememberable, :timeoutable and :omniauthable
+  #
+  attr_accessor :as_manager
+  devise :database_authenticatable, :registerable, :trackable, :validatable
 
   #validations
   validate  :password_complexity
@@ -32,7 +33,11 @@ class User < ApplicationRecord
   end
 
   def assign_default_role
-    self.add_role(:developer) if self.roles.blank?
+    if self.as_manager == "1"
+      self.add_role(:manager)
+    else
+      self.add_role(:developer)
+    end
   end
 
   def is_manager?
