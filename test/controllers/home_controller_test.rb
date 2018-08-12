@@ -40,4 +40,27 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_equal assigns(:projects).count, 3
   end
 
+  test "developer should not be able to call get project status" do
+    project = create(:project)
+    developer = create(:developer)
+    sign_in developer
+    get get_project_status_url(project.id)
+    assert_redirect_to root_path
+  end
+
+  test "manager should be able to get project status" do
+    manager = create(:manager)
+    3.times do
+      project = create(:project, manager: manager)
+      2.times do
+        create(:task, :assigned, project: project)
+        create(:task, :in_progress, project: project)
+        create(:task, :done, project: project)
+      end
+    end
+    sign_in manager
+    get get_project_status_url(Project.first.id)
+    assert_equal assigns(:project).tasks.count, 6
+  end
+
 end

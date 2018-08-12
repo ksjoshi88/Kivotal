@@ -13,7 +13,7 @@ class WorkProjectsControllerTest < ActionDispatch::IntegrationTest
     get work_projects_index_url
     assert_redirected_to root_path
   end
-  
+
 
   test "should get index if logged in as Developer" do
     sign_in @developer
