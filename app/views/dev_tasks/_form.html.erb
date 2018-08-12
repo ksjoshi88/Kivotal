@@ -1,27 +1,32 @@
-<%= form_for([@task.project, @task]) do |f| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+<div class="row dev-task-container">
+  <div class="col-xs-12 col-md-6 mx-auto">
+    <%= link_to 'Back', work_project_dev_tasks_path(@task.project) %>
+    <div class="jumbotron">
+      <h6>Change status of task</h6>
+      <h1 class="display-5"><%= @task.todo %></h1>
+      <hr class="my-4">
+      <%= form_for([@task.project, @task]) do |f| %>
+        <% if @task.errors.any? %>
+          <div id="error_explanation">
+            <h6><%= pluralize(@task.errors.count, "error") %></h6>
+            <ul>
+              <% @task.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-      <ul>
-      <% @task.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <div class="form-group">
+          <%= f.label :status %><br />
+          <%= f.select :status, :collection => Task.statuses.keys.last(2).to_a, class: 'form-control' %>
+        </div>
+        <%= f.submit "Submit", class: 'btn btn-primary' %>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :todo %><br />
-    <%= f.text_field :todo %>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :status %><br />
-    <%= f.select :status, :collection => Task.statuses.keys.last(3).to_a %>
-  </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+
+

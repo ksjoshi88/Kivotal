@@ -25,12 +25,10 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.manager = current_user
-    respond_to do |format|
-      if @project.save
+    if @project.save
         redirect_to projects_url
-      else
-        format.html { render :new }
-      end
+    else
+        render :new
     end
   end
 

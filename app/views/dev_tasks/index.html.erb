@@ -1,21 +1,28 @@
-<h1><%= @project.title %></h1>
-<h3>tasks assigned</h3>
+<%= link_to 'Back', work_projects_path %>
+<div class="jumbotron">
+  <h6>Manage your tasks for</h6>
+  <h1 class="display-4"><%= @project.title %></h1>
+</div>
 
-<table>
-  <tr>
-    <th>Todo</th>
-    <th>Status</th>
-    <th></th>
-  </tr>
-
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th>Todo</th>
+      <th>Current Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
   <% @tasks.each do |task| %>
     <tr>
       <td><%= task.todo %></td>
-      <td><%= task.status %></td>
+      <td><%= task.status.humanize %></td>
       <td><%= link_to 'Change Status', edit_work_project_dev_task_path(task.project, task) %></td>
     </tr>
   <% end %>
 </table>
+
+
+
 
 
 

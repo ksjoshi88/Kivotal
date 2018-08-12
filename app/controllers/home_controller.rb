@@ -7,6 +7,8 @@ class HomeController < ApplicationController
       @projects = current_user.projects.includes(:tasks => [:developer])
       @tasks = @projects.collect(&:tasks).flatten.uniq
       @devs =  @tasks.collect(&:developer).flatten.uniq
+    else
+      redirect_to work_projects_path
     end
   end
 
