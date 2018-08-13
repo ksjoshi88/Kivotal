@@ -1,32 +1,30 @@
 # Kivotal
 
+Kivotal is a project-tracking application developed using ruby on rails.
 
-To run the application on your development machine, you must have ruby installed.
+To run the application on your development machine, you must have rails environment setup. No need to install any database as a sqllite instance is present in the application itself.
 
-First clone/download the project from here.
+First clone/download the projectfrom here.
 
-Assuming you have Rails environment set up on your machine, go to the project directory in console (Kivotal)
-and run these commands:
+Go to the project directory in console (Kivotal) and run these commands:
 
 rake db:migrate
 rake db:seed
 
-The above commands will create enough data for you to be able to explore/test the application.
-
-Next run:
+The above commands will create enough data for you to be able to explore/test the application. Next run:
 
 rails s 
 
-And start browsing the applicatio through url:  localhost:3000
+You can start browsing the application through url:  localhost:3000
 
 The application has two major user roles: Manager and Developer
 
-For manager role use following login credentials:
+For manager role use the following login credentials:
 
 email:     manager@kivotal.com
 password:  Kivotal1
 
-For developer role use:
+And for developer role:
 
 email:    developer@kivotal.com
 password: Kivotal1
